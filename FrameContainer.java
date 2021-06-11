@@ -175,7 +175,7 @@ public class FrameContainer implements ContainerFunctions{
 	public void rotateAll(Frame[] f) {
 		// TODO Auto-generated method stub
 
-		for (int z = 0; z<this.size; z++) {
+		for (int z = 0; z<f.length; z++) {
 			f[z].rotate90();
 		}
 	}
@@ -184,7 +184,7 @@ public class FrameContainer implements ContainerFunctions{
 	public void smoothAll(Frame[] f, int n) {
 		// TODO Auto-generated method stub
 
-		for (int s = 0; s<this.size; s++) {
+		for (int s = 0; s<f.length; s++) {
 			f[s].smooth(n);
 		}
 	}
