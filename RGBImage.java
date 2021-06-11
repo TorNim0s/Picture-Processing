@@ -5,11 +5,11 @@ public class RGBImage implements Frame, Comparable<Frame>{
 	int frame[][][];
 
 	public RGBImage(int[][][] frame) {
-		this.frame = frame;
+		this.frame = frame.clone();
 	}
 
 	public RGBImage(RGBImage new_frame) {
-		this.frame = new_frame.getFrame();
+		this.frame = new_frame.frame.clone();
 	}
 
 	public int[][][] getFrame(){

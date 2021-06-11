@@ -10,20 +10,20 @@ public class FrameContainer implements ContainerFunctions{
 	private int size;
 
 	public FrameContainer(){
-		frames = new Frame[INIT_SIZE];
-		size = 0;
+		this.frames = new Frame[INIT_SIZE];
+		this.size = 0;
 	}
 
 	public FrameContainer(String FileName){
-		frames = new Frame[INIT_SIZE];
-		size = 0;
+		this.frames = new Frame[INIT_SIZE];
+		this.size = 0;
 		try {
 			File TextFile = new File(FileName);
 			Scanner sc = new Scanner(TextFile);
 
 			while(sc.hasNext()) {
-				if ((frames.length + 1) == size) resize();
-				frames[size++] = MyImageIO.readImageFromFile(sc.nextLine(), false);
+				if ((this.frames.length + 1) == this.size) resize();
+				this.frames[size++] = MyImageIO.readImageFromFile(sc.nextLine(), false);
 			}
 		}
 		catch(Exception ex) {
@@ -33,30 +33,30 @@ public class FrameContainer implements ContainerFunctions{
 
 	@Override
 	public Frame get(int i) {
-		if (i >= size || i<0)
+		if (i >= this.size || i<0)
 			return null;
 
-		return frames[i];
+		return this.frames[i];
 	}
 
 	@Override
 	public int size() {
-		return size;
+		return this.size;
 	}
 
 	@Override
 	public void add(Frame f) {
 		// TODO Auto-generated method stub
-		if (size == frames.length) resize();
-		frames[size++] = f;
+		if (this.size == this.frames.length) resize();
+		this.frames[this.size++] = f;
 	}
 
 	public void resize(){
-		Frame temp[] = new Frame[frames.length+RESIZE];
-		for(int i=0; i<frames.length; i++){
-			temp[i] = frames[i];
+		Frame temp[] = new Frame[this.frames.length+RESIZE];
+		for(int i=0; i<this.frames.length; i++){
+			temp[i] = this.frames[i];
 		}
-		frames = temp;
+		this.frames = temp;
 	}
 
 	@Override
@@ -65,18 +65,18 @@ public class FrameContainer implements ContainerFunctions{
 
 		boolean removed = false;
 
-		for (int i = 0; i<size && !removed; i++) {
+		for (int i = 0; i<this.size && !removed; i++) {
 
 			if (f instanceof RGBImage) {
 
-				if (frames[i] instanceof GrayImage) {
+				if (this.frames[i] instanceof GrayImage) {
 					continue;
 				}
 
-				if (((RGBImage) f).compareTo(frames[i]) == 0){
+				if (((RGBImage) f).compareTo(this.frames[i]) == 0){
 
 					int delete_Arr[][][] = ((RGBImage) f).getFrame();
-					int my_arr[][][] = ((RGBImage)frames[i]).getFrame();	
+					int my_arr[][][] = ((RGBImage)this.frames[i]).getFrame();	
 
 					boolean same = true;
 
@@ -97,13 +97,13 @@ public class FrameContainer implements ContainerFunctions{
 			}
 
 			else{
-				if (frames[i] instanceof RGBImage) {
+				if (this.frames[i] instanceof RGBImage) {
 					continue;
 				}
 
-				if (((GrayImage)f).compareTo(frames[i]) == 0){
+				if (((GrayImage)f).compareTo(this.frames[i]) == 0){
 					int delete_Arr[][] = ((GrayImage) f).getFrame();
-					int my_arr[][] = ((GrayImage)frames[i]).getFrame();	
+					int my_arr[][] = ((GrayImage)this.frames[i]).getFrame();	
 
 					boolean same = true;
 
@@ -122,14 +122,14 @@ public class FrameContainer implements ContainerFunctions{
 			}
 
 			if (removed) {
-				frames[i] = null;
+				this.frames[i] = null;
 
-				for (int j = i+1; j<size; j++) {
-					frames[j-1] = frames[j];
-					frames[j] = null;
+				for (int j = i+1; j<this.size; j++) {
+					this.frames[j-1] = this.frames[j];
+					this.frames[j] = null;
 				}
 
-				size--;
+				this.size--;
 			}
 		}
 	}
@@ -138,9 +138,9 @@ public class FrameContainer implements ContainerFunctions{
 	public void sort(Frame[] f) {
 		// TODO Auto-generated method stub
 
-		for (int i = 0; i<size - 1; i++) {
+		for (int i = 0; i<this.size - 1; i++) {
 
-			for (int j = i+1; j<size; j++) {	
+			for (int j = i+1; j<this.size; j++) {	
 				int answer = 0;
 
 				if (f[i] instanceof GrayImage) {
@@ -175,7 +175,7 @@ public class FrameContainer implements ContainerFunctions{
 	public void rotateAll(Frame[] f) {
 		// TODO Auto-generated method stub
 
-		for (int z = 0; z<size; z++) {
+		for (int z = 0; z<this.size; z++) {
 			f[z].rotate90();
 		}
 	}
@@ -184,7 +184,7 @@ public class FrameContainer implements ContainerFunctions{
 	public void smoothAll(Frame[] f, int n) {
 		// TODO Auto-generated method stub
 
-		for (int s = 0; s<size; s++) {
+		for (int s = 0; s<this.size; s++) {
 			f[s].smooth(n);
 		}
 	}

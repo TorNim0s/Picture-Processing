@@ -6,11 +6,11 @@ public class GrayImage implements Frame, Comparable<Frame> {
 	private int[][] frame;
 
 	public GrayImage(int[][] frame) {
-		this.frame = frame;
+		this.frame = frame.clone();
 	}
 
 	public GrayImage(GrayImage new_frame) {
-		this.frame = new_frame.getFrame();
+		this.frame = new_frame.frame.clone();
 	}
 
 	public int[][] getFrame(){
