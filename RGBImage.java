@@ -9,7 +9,15 @@ public class RGBImage implements Frame, Comparable<Frame>{
 	}
 
 	public RGBImage(RGBImage new_frame) {
-		this.frame = new_frame.frame.clone();
+		this.frame = new int[3][new_frame.frame[0].length][new_frame.frame[0][0].length];
+
+		for (int i = 0; i<new_frame.frame[0].length; i++) {
+			for (int j = 0; j<new_frame.frame[0][0].length; j++) {
+				this.frame[0][i][j] = new_frame.frame[0][i][j];
+				this.frame[1][i][j] = new_frame.frame[1][i][j];
+				this.frame[2][i][j] = new_frame.frame[2][i][j];
+			}	
+		}
 	}
 
 	public int[][][] getFrame(){
@@ -84,6 +92,9 @@ public class RGBImage implements Frame, Comparable<Frame>{
 	@Override
 	public void smooth(int n) {
 		// TODO Auto-generated method stub
+
+		int arr[][][] = new int[3][this.frame[0].length][this.frame[0][0].length];
+
 		if (n <= 2) {
 			return;
 		}
@@ -98,8 +109,8 @@ public class RGBImage implements Frame, Comparable<Frame>{
 					int counter = 0;
 					int avg = 0;
 
-					for (int a = i-n; a<= i+n; a++) {
-						for (int b = j-n; b<= j+n; b++) {
+					for (int a = i-(n/2); a<= i+(n/2); a++) {
+						for (int b = j-(n/2); b<= j+(n/2); b++) {
 							if (isInside(this.frame, a, b)) {
 								counter++;
 								avg += this.frame[z][a][b];
@@ -107,10 +118,12 @@ public class RGBImage implements Frame, Comparable<Frame>{
 						}
 					}
 
-					this.frame[z][i][j] = avg/(counter);
+					arr[z][i][j] = avg/(counter);
 				}
 			}
 		}
+
+		this.frame = arr;
 	}
 
 	@Override

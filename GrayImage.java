@@ -10,7 +10,14 @@ public class GrayImage implements Frame, Comparable<Frame> {
 	}
 
 	public GrayImage(GrayImage new_frame) {
-		this.frame = new_frame.frame.clone();
+		this.frame = new int[new_frame.frame.length][new_frame.frame[0].length];
+		
+		for (int i = 0; i<new_frame.frame.length; i++) {
+			for (int j = 0; j<new_frame.frame[0].length; j++) {
+				this.frame[i][j] = new_frame.frame[i][j];
+			}	
+		}
+		
 	}
 
 	public int[][] getFrame(){
@@ -84,6 +91,8 @@ public class GrayImage implements Frame, Comparable<Frame> {
 	public void smooth(int n) {
 		// TODO Auto-generated method stub
 		
+		int arr[][] = new int[this.frame.length][this.frame[0].length];
+		
 		if (n <= 2) {
 			return;
 		}
@@ -97,8 +106,8 @@ public class GrayImage implements Frame, Comparable<Frame> {
 				int counter = 0;
 				int avg = 0;
 
-				for (int a = i-n; a<= i+n; a++) {
-					for (int b = j-n; b<= j+n; b++) {
+				for (int a = i-(n/2); a<= i+(n/2); a++) {
+					for (int b = j-(n/2); b<= j+(n/2); b++) {
 						if (isInside(this.frame, a, b)) {
 							counter++;
 							avg += this.frame[a][b];
@@ -106,9 +115,11 @@ public class GrayImage implements Frame, Comparable<Frame> {
 					}
 				}
 
-				this.frame[i][j] = avg/(counter);
+				arr[i][j] = avg/(counter);
 			}
 		}
+		
+		this.frame = arr;
 	}
 
 	@Override
