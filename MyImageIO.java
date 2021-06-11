@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+
 import javax.imageio.ImageIO;
 
 public class MyImageIO {
@@ -103,8 +104,12 @@ public class MyImageIO {
 		Frame gray= readImageFromFile("catE.jpg", true);
 		Frame color2=readImageFromFile("catE.jpg", false);
 
+		FrameContainer a = new FrameContainer("readframes.txt");
+		
 		//gray.smooth(5);
 		//color.smooth(2);
+		
+		a.remove(color);
 		
 		color.rotate90();
 		gray.rotate90();
