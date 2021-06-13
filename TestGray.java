@@ -6,47 +6,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class TestGray {
-
-	@Test
-	void test1() {
-		int[][] arr = {
-
-				{ 1, 1, 1, 1 },
-				{ 1, 1, 1, 1 },
-				{ 1, 1, 1, 1 },
-				{ 1, 1, 1, 1 }, 
-
-		};
-
-		Frame color = new GrayImage(arr);
-
-		int[][] arr2 = {
-				{ 1, 1, 1, 1 }, { 1, 1, 1, 1 }, { 1, 1, 1, 1 } ,
-
-		};
-		Frame color2 = new GrayImage(arr2);
-
-		int[][] arr3 = { 
-				{ 1, 1, 1, 1 }, { 1, 1, 1, 1 },
-
-		};
-
-		Frame color3 = new GrayImage(arr3);
-
-		FrameContainer a = new FrameContainer();
-
-		a.add(color);
-		a.add(color3);
-		a.add(color2);
-
-		a.sort(a.frames);
-
-		int arr5[][] = ((GrayImage)a.get(0)).getFrame();
-
-		Assertions.assertArrayEquals(arr5, arr3);
-
-	}
-
 	@Test
 	void test2() {
 		int[][][] arr = { 

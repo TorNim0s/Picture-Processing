@@ -11,13 +11,13 @@ public class GrayImage implements Frame, Comparable<Frame> {
 
 	public GrayImage(GrayImage new_frame) {
 		this.frame = new int[new_frame.frame.length][new_frame.frame[0].length];
-		
+
 		for (int i = 0; i<new_frame.frame.length; i++) {
 			for (int j = 0; j<new_frame.frame[0].length; j++) {
 				this.frame[i][j] = new_frame.frame[i][j];
 			}	
 		}
-		
+
 	}
 
 	public int[][] getFrame(){
@@ -35,38 +35,38 @@ public class GrayImage implements Frame, Comparable<Frame> {
 
 	@Override
 	public int compareTo(Frame f) {
-		
+
 		if (f instanceof RGBImage) {
 			int arr[][][];
-			
+
 			arr = ((RGBImage)f).getFrame();
-			
+
 			int my_size = this.frame.length * this.frame[0].length;
 			int other = arr[0].length * arr[0][0].length;
-			
+
 			if (my_size > other)
 				return 1;
-			
+
 			if (my_size < other)
 				return -1;
-			
+
 			return 0;
 		}
-		
+
 		else {
 			int arr[][];
-			
+
 			arr = ((GrayImage)f).getFrame();
-			
+
 			int my_size = this.frame.length * this.frame[0].length;
 			int other = arr.length * arr[0].length;
-			
+
 			if (my_size > other)
 				return 1;
-			
+
 			if (my_size < other)
 				return -1;
-			
+
 			return 0;
 		}
 	}
@@ -90,17 +90,17 @@ public class GrayImage implements Frame, Comparable<Frame> {
 	@Override
 	public void smooth(int n) {
 		// TODO Auto-generated method stub
-		
+
 		int arr[][] = new int[this.frame.length][this.frame[0].length];
-		
+
 		if (n <= 2) {
 			return;
 		}
-		
+
 		if (n%2 == 0) {
 			n--;
 		}
-		
+
 		for (int i = 0; i < this.frame.length; i++) {
 			for (int j = 0; j < this.frame[0].length; j++) {
 				int counter = 0;
@@ -118,7 +118,7 @@ public class GrayImage implements Frame, Comparable<Frame> {
 				arr[i][j] = avg/(counter);
 			}
 		}
-		
+
 		this.frame = arr;
 	}
 
@@ -157,22 +157,27 @@ public class GrayImage implements Frame, Comparable<Frame> {
 	public void addFrom(Frame f) {
 		// TODO Auto-generated method stub
 		int arr[][];
-		
+
 		if (f instanceof GrayImage) {
 			arr = ((GrayImage)f).getFrame();
 		}
-		
+
 		else {
 			return;
 		}
-		
+
 		int x[] = new int[1];
 
 		if (arr.length == this.frame.length && arr[0].length == this.frame[0].length) {
 			for (int i = 0; i<this.frame.length;i++) {
 				for (int j = 0; j<this.frame[0].length;j++) {
 					x = f.getPixel(i, j);
-					this.frame[i][j] = this.frame[i][j] + x[0];
+					if ( this.frame[i][j] + x[0] > 255*255) {
+						this.frame[i][j] =  255*255;
+					}
+					else {
+						this.frame[i][j] = this.frame[i][j] + x[0];
+					}
 				}
 			}
 		}

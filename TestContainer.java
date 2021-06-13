@@ -208,44 +208,36 @@ class TestContainer {
 		Assertions.assertArrayEquals(arr10, ArrayOfmatrix);
 
 	}
-	@Test
-	void test5() {
-		int[][] arr = {
-
-				{ 1, 1, 1, 1 },
-				{ 1, 1, 1, 1 },
-				{ 1, 1, 1, 1 },
-				{ 1, 1, 1, 1 }, 
-
-		};
-
-		Frame Gray = new GrayImage(arr);
-
-		int[][] arr2 = {
-				{ 1, 1, 1, 1 }, { 1, 1, 1, 1 }, { 1, 1, 1, 1 } ,
-
-		};
-		Frame Gray2 = new GrayImage(arr2);
-
-		int[][] arr3 = { 
-				{ 1, 1, 1, 1 }, { 1, 1, 1, 1 },
-
-		};
-
-		Frame Gray3 = new GrayImage(arr3);
-
-		FrameContainer a = new FrameContainer();
-
-		a.add(Gray);
-		a.add(Gray3);
-		a.add(Gray2);
-
-		a.sort(a.frames);
-
-		int arr5[][] = ((GrayImage)a.get(0)).getFrame();
-
-		Assertions.assertArrayEquals(arr5, arr3);
-
-	}
+	/*
+	 * @Test void test5() { int[][] arr = {
+	 * 
+	 * { 1, 1, 1, 1 }, { 1, 1, 1, 1 }, { 1, 1, 1, 1 }, { 1, 1, 1, 1 },
+	 * 
+	 * };
+	 * 
+	 * Frame Gray = new GrayImage(arr);
+	 * 
+	 * int[][] arr2 = { { 1, 1, 1, 1 }, { 1, 1, 1, 1 }, { 1, 1, 1, 1 } ,
+	 * 
+	 * }; Frame Gray2 = new GrayImage(arr2);
+	 * 
+	 * int[][] arr3 = { { 1, 1, 1, 1 }, { 1, 1, 1, 1 },
+	 * 
+	 * };
+	 * 
+	 * Frame Gray3 = new GrayImage(arr3);
+	 * 
+	 * FrameContainer a = new FrameContainer();
+	 * 
+	 * a.add(Gray); a.add(Gray3); a.add(Gray2);
+	 * 
+	 * a.sort(a.frames);
+	 * 
+	 * int arr5[][] = ((GrayImage)a.get(0)).getFrame();
+	 * 
+	 * Assertions.assertArrayEquals(arr5, arr3);
+	 * 
+	 * }
+	 */
 
 }

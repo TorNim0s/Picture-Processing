@@ -1,12 +1,13 @@
 package Ex4;
 
 import java.io.*;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class FrameContainer implements ContainerFunctions{
 
 	private final int INIT_SIZE = 5, RESIZE = 5;
-	Frame[] frames;
+	private Frame[] frames;
 	private int size;
 
 	public FrameContainer(){
@@ -138,36 +139,30 @@ public class FrameContainer implements ContainerFunctions{
 	public void sort(Frame[] f) {
 		// TODO Auto-generated method stub
 
-		for (int i = 0; i<this.size - 1; i++) {
-
-			for (int j = i+1; j<this.size; j++) {	
-				int answer = 0;
-
-				if (f[i] instanceof GrayImage) {
-					answer = ((GrayImage)f[i]).compareTo(f[j]);
-				}
-
-				else {
-					answer = ((RGBImage)f[i]).compareTo(f[j]);
-				}
-
-				if (answer == 1) {
-
-					Frame hold;
-
-					if (f[i] instanceof GrayImage) {
-						hold = new GrayImage((GrayImage)f[i]);	
-					}
-
-					else {
-						hold = new RGBImage((RGBImage)f[i]);		
-					}
-
-					f[i] = f[j];
-					f[j] = hold;
-				}
-			}	
-		}
+		
+		Arrays.sort(f);
+		
+		/*
+		 * for (int i = 0; i<this.size - 1; i++) {
+		 * 
+		 * for (int j = i+1; j<this.size; j++) { int answer = 0;
+		 * 
+		 * if (this.frames[i] instanceof GrayImage) { answer =
+		 * ((GrayImage)this.frames[i]).compareTo(this.frames[j]); }
+		 * 
+		 * else { answer = ((RGBImage)this.frames[i]).compareTo(this.frames[j]); }
+		 * 
+		 * if (answer == 1) {
+		 * 
+		 * Frame hold;
+		 * 
+		 * if (this.frames[i] instanceof GrayImage) { hold = new
+		 * GrayImage((GrayImage)this.frames[i]); }
+		 * 
+		 * else { hold = new RGBImage((RGBImage)this.frames[i]); }
+		 * 
+		 * this.frames[i] = this.frames[j]; this.frames[j] = hold; } } }
+		 */
 
 	}
 
@@ -175,8 +170,8 @@ public class FrameContainer implements ContainerFunctions{
 	public void rotateAll(Frame[] f) {
 		// TODO Auto-generated method stub
 
-		for (int z = 0; z<f.length; z++) {
-			f[z].rotate90();
+		for (int z = 0; z<this.size; z++) {
+			this.frames[z].rotate90();
 		}
 	}
 
@@ -184,8 +179,8 @@ public class FrameContainer implements ContainerFunctions{
 	public void smoothAll(Frame[] f, int n) {
 		// TODO Auto-generated method stub
 
-		for (int s = 0; s<f.length; s++) {
-			f[s].smooth(n);
+		for (int s = 0; s<this.size; s++) {
+			this.frames[s].smooth(n);
 		}
 	}
 
