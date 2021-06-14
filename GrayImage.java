@@ -36,6 +36,10 @@ public class GrayImage implements Frame, Comparable<Frame> {
 	@Override
 	public int compareTo(Frame f) {
 
+		if (f == null) {
+			return -1;
+		}
+		
 		if (f instanceof RGBImage) {
 			int arr[][][];
 

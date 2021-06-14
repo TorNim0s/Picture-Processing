@@ -11,11 +11,11 @@ public interface ContainerFunctions {
 	
 	public void remove(Frame f);
 	
-	public void sort(Frame[] f);
+	public void sort();
 	
-	public void rotateAll(Frame[] f);
+	public void rotateAll();
 	
-	public void smoothAll(Frame[] f, int n);
+	public void smoothAll(int n);
 	
 
 	

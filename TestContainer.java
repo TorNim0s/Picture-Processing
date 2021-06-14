@@ -49,43 +49,14 @@ class TestContainer {
 		for (int i = 0; i < ArrayOfFrame.length; i++) {
 			frameContainer.add(ArrayOfFrame[i]);
 		}
-		frameContainer.sort(ArrayOfFrame);
+		frameContainer.sort();
 
 		//	        int[][][] ArrayOfmatrix = new int[5][][];
 		//	        for (int i = 0; i < ArrayOfFrame.length; i++) {
 		//	            ArrayOfmatrix[i] = ((GrayImage) ArrayOfFrame[i]).getFrame();
 		//	        }
 
-		int arr9[][] = ((GrayImage) ArrayOfFrame[0]).getFrame(); 
-		int[][][][] arr10 = { 
-				// {{ { 1 }, { 1 } },
-				// { { 1 }, { 1 } },
-				// { { 1 }, { 1 } },},
-
-
-				{{ { 1 }, { 1 }, { 1 }, { 1 }, },
-					{ { 1 }, { 1 }, { 1 }, { 1 }, },
-					{ { 1 }, { 1 }, { 1 }, { 1 }, },
-				},
-
-
-				{{ { 1, 1, 1, 1 }, { 1, 1, 1, 1 }, },             
-					{ { 1, 1, 1, 1 }, { 1, 1, 1, 1 }, },             
-					{ { 1, 1, 1, 1 }, { 1, 1, 1, 1 }, },             },
-
-
-				{{ { 1, 1, 1, 1 }, { 1, 1, 1, 1 }, { 1, 1, 1, 1 }, },
-						{ { 1, 1, 1, 1 }, { 1, 1, 1, 1 }, { 1, 1, 1, 1 }, },
-						{ { 1, 1, 1, 1 }, { 1, 1, 1, 1 }, { 1, 1, 1, 1 }, },},
-
-
-				{{ { 1, 1, 1, 1 }, { 1, 1, 1, 1 }, { 1, 1, 1, 1 }, { 1, 1, 1, 1 }, },
-							{ { 1, 1, 1, 1 }, { 1, 1, 1, 1 }, { 1, 1, 1, 1 }, { 1, 1, 1, 1 }, },
-							{ { 1, 1, 1, 1 }, { 1, 1, 1, 1 }, { 1, 1, 1, 1 }, { 1, 1, 1, 1 }, },}
-
-
-		};
-
+		int arr9[][] = ((GrayImage)frameContainer.get(0)).getFrame(); 
 
 		Assertions.assertArrayEquals(arr5, arr9);
 
@@ -146,9 +117,16 @@ class TestContainer {
 		Frame[] ArrayOfFrame = { gray, gray2, gray3, gray4, gray5, };
 
 		FrameContainer frameContainer = new FrameContainer();
-		frameContainer.rotateAll(ArrayOfFrame);
-		int[][][] ArrayOfmatrix = { ((GrayImage) gray).getFrame(), ((GrayImage) gray2).getFrame(),
-				((GrayImage) gray3).getFrame(), ((GrayImage) gray4).getFrame(), ((GrayImage) gray5).getFrame(), };
+		
+		frameContainer.add(gray);
+		frameContainer.add(gray2);
+		frameContainer.add(gray3);
+		frameContainer.add(gray4);
+		frameContainer.add(gray5);
+		
+		frameContainer.rotateAll();
+		int[][][] ArrayOfmatrix = { ((GrayImage)frameContainer.get(0)).getFrame(), ((GrayImage) frameContainer.get(1)).getFrame(),
+				((GrayImage) frameContainer.get(2)).getFrame(), ((GrayImage) frameContainer.get(3)).getFrame(), ((GrayImage) frameContainer.get(4)).getFrame(), };
 
 		int[][][] arr10 = { { { 1, 1, 1, 1 }, { 2, 2, 2, 2 }, { 3, 3, 3, 3 }, { 4, 4, 4, 4 }, },
 
@@ -189,9 +167,16 @@ class TestContainer {
 		Frame[] ArrayOfFrame = { gray, gray2, gray3, gray4, gray5, };
 
 		FrameContainer frameContainer = new FrameContainer();
-		frameContainer.rotateAll(ArrayOfFrame);
-		int[][][] ArrayOfmatrix = { ((GrayImage) gray).getFrame(), ((GrayImage) gray2).getFrame(),
-				((GrayImage) gray3).getFrame(), ((GrayImage) gray4).getFrame(), ((GrayImage) gray5).getFrame(), };
+		
+		frameContainer.add(gray);
+		frameContainer.add(gray2);
+		frameContainer.add(gray3);
+		frameContainer.add(gray4);
+		frameContainer.add(gray5);
+		
+		frameContainer.rotateAll();
+		int[][][] ArrayOfmatrix = { ((GrayImage)frameContainer.get(0)).getFrame(), ((GrayImage) frameContainer.get(1)).getFrame(),
+				((GrayImage) frameContainer.get(2)).getFrame(), ((GrayImage) frameContainer.get(3)).getFrame(), ((GrayImage) frameContainer.get(4)).getFrame(), };
 
 		int[][][] arr10 = { { { 1, 1, 1, 1 }, { 2, 2, 2, 2 }, { 3, 3, 3, 3 }, { 4, 4, 4, 4 }, },
 
