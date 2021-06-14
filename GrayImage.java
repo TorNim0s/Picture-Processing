@@ -142,10 +142,14 @@ public class GrayImage implements Frame, Comparable<Frame> {
 	public void crop(int x, int y) {
 		// TODO Auto-generated method stub
 
+		if (x >= this.frame.length || y >= this.frame[0].length) {
+			return;
+		}
+		
 		int[][] new_frame = new int[x][y];
 
-		for (int i = 0; i <x; i++) {
-			for (int j = 0; j <y; j++) {
+		for (int i = 0; i <=x; i++) {
+			for (int j = 0; j <=y; j++) {
 
 				if(isInside(this.frame, i,j)) {
 					new_frame[i][j] = this.frame[i][j];

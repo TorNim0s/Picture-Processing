@@ -104,7 +104,7 @@ public class MyImageIO {
 		Frame gray= readImageFromFile("catE.jpg", true);
 		Frame color2=readImageFromFile("catE.jpg", false);
 
-		FrameContainer a = new FrameContainer("readframes.txt");
+		FrameContainer a = new FrameContainer("readframes.txt", true);
 		
 		//gray.smooth(5);
 		//color.smooth(2);

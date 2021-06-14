@@ -150,10 +150,14 @@ public class RGBImage implements Frame, Comparable<Frame>{
 	public void crop(int x, int y) {
 		// TODO Auto-generated method stub
 
+		if (x >= this.frame[0].length || y >= this.frame[0][0].length) {
+			return;
+		}
+		
 		int[][][] new_frame = new int[3][x][y];
 
-		for (int i = 0; i <x; i++) {
-			for (int j = 0; j <y; j++) {
+		for (int i = 0; i <=x; i++) {
+			for (int j = 0; j <=y; j++) {
 				for (int z = 0; z<3; z++) {
 
 					if(isInside(this.frame, i,j)) {

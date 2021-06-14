@@ -15,7 +15,7 @@ public class FrameContainer implements ContainerFunctions {
 		this.size = 0;
 	}
 
-	public FrameContainer(String FileName) {
+	public FrameContainer(String FileName, boolean gray) {
 		this.frames = new Frame[INIT_SIZE];
 		this.size = 0;
 		try {
@@ -25,8 +25,9 @@ public class FrameContainer implements ContainerFunctions {
 			while (sc.hasNext()) {
 				if ((this.frames.length + 1) == this.size)
 					resize();
-				this.frames[size++] = MyImageIO.readImageFromFile(sc.nextLine(), false);
+				this.frames[size++] = MyImageIO.readImageFromFile(sc.nextLine(), gray);
 			}
+			sc.close();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
