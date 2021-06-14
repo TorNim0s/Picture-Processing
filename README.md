@@ -1,6 +1,8 @@
 # Picture-Processing
 ## Computer Science task number 4;
 
+![catE jpg_color](https://user-images.githubusercontent.com/62290677/121736567-67645800-cb00-11eb-9bb7-7a8070a06285.jpg)
+
 ### Stage 1:
 
 I need to Implement the following Classes that implements Frame:
