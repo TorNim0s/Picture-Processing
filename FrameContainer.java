@@ -1,7 +1,6 @@
 package Ex4;
 
 import java.io.*;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class FrameContainer implements ContainerFunctions {

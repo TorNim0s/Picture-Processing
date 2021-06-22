@@ -1,7 +1,5 @@
 package Ex4;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -108,9 +106,9 @@ class TestRGB {
 		int[][][] ArrayOfFrame = ((RGBImage) color).getFrame();
 
 		int[][][] arr2 = { 
-				{{ 1, 2 }, { 4, 5 }},
-				{{ 1, 2 }, { 4, 5 }},
-				{{ 1, 2 }, { 4, 5 }},
+				{{ 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 }},
+				{{ 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 }},
+				{{ 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 }}
 		};
 
 		Assertions.assertArrayEquals(arr2, ArrayOfFrame);

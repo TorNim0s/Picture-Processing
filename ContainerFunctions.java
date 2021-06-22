@@ -1,6 +1,5 @@
 package Ex4;
 
-
 public interface ContainerFunctions {
 	
 	public Frame get(int i);

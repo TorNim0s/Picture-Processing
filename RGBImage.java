@@ -2,15 +2,28 @@ package Ex4;
 
 public class RGBImage implements Frame, Comparable<Frame>{
 
-	int frame[][][];
-
+	private int frame[][][];
+	private int size;
+	
 	public RGBImage(int[][][] frame) {
-		this.frame = frame.clone();
+		this.frame = new int[3][frame[0].length][frame[0][0].length];
+		
+		this.size = frame[0].length * frame[0][0].length;
+		
+		for (int i = 0; i<frame[0].length; i++) {
+			for (int j = 0; j<frame[0][0].length; j++) {
+				this.frame[0][i][j] = frame[0][i][j];
+				this.frame[1][i][j] = frame[1][i][j];
+				this.frame[2][i][j] = frame[2][i][j];
+			}	
+		}
 	}
 
 	public RGBImage(RGBImage new_frame) {
 		this.frame = new int[3][new_frame.frame[0].length][new_frame.frame[0][0].length];
 
+		this.size = new_frame.frame[0].length * new_frame.frame[0][0].length;
+		
 		for (int i = 0; i<new_frame.frame[0].length; i++) {
 			for (int j = 0; j<new_frame.frame[0][0].length; j++) {
 				this.frame[0][i][j] = new_frame.frame[0][i][j];
@@ -45,7 +58,7 @@ public class RGBImage implements Frame, Comparable<Frame>{
 
 			arr = ((RGBImage)f).getFrame();
 
-			int my_size = this.frame[0].length * this.frame[0][0].length;
+			int my_size = this.size;
 			int other = arr[0].length * arr[0][0].length;
 
 			if (my_size > other)
@@ -62,7 +75,7 @@ public class RGBImage implements Frame, Comparable<Frame>{
 
 			arr = ((GrayImage)f).getFrame();
 
-			int my_size = this.frame[0].length * this.frame[0][0].length;
+			int my_size = this.size;
 			int other = arr.length * arr[0].length;
 
 			if (my_size > other)
@@ -154,7 +167,7 @@ public class RGBImage implements Frame, Comparable<Frame>{
 			return;
 		}
 		
-		int[][][] new_frame = new int[3][x][y];
+		int[][][] new_frame = new int[3][x+1][y+1];
 
 		for (int i = 0; i <=x; i++) {
 			for (int j = 0; j <=y; j++) {

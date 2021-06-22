@@ -4,14 +4,25 @@ package Ex4;
 public class GrayImage implements Frame, Comparable<Frame> {
 
 	private int[][] frame;
-
+	private int size;
+	
 	public GrayImage(int[][] frame) {
-		this.frame = frame.clone();
+		this.frame = new int[frame.length][frame[0].length];
+
+		this.size = frame.length * frame[0].length;
+		
+		for (int i = 0; i<frame.length; i++) {
+			for (int j = 0; j<frame[0].length; j++) {
+				this.frame[i][j] = frame[i][j];
+			}	
+		}
 	}
 
 	public GrayImage(GrayImage new_frame) {
 		this.frame = new int[new_frame.frame.length][new_frame.frame[0].length];
 
+		this.size = new_frame.frame.length * new_frame.frame[0].length;
+		
 		for (int i = 0; i<new_frame.frame.length; i++) {
 			for (int j = 0; j<new_frame.frame[0].length; j++) {
 				this.frame[i][j] = new_frame.frame[i][j];
@@ -45,7 +56,7 @@ public class GrayImage implements Frame, Comparable<Frame> {
 
 			arr = ((RGBImage)f).getFrame();
 
-			int my_size = this.frame.length * this.frame[0].length;
+			int my_size = this.size;
 			int other = arr[0].length * arr[0][0].length;
 
 			if (my_size > other)
@@ -62,7 +73,7 @@ public class GrayImage implements Frame, Comparable<Frame> {
 
 			arr = ((GrayImage)f).getFrame();
 
-			int my_size = this.frame.length * this.frame[0].length;
+			int my_size = this.size;
 			int other = arr.length * arr[0].length;
 
 			if (my_size > other)
@@ -146,7 +157,7 @@ public class GrayImage implements Frame, Comparable<Frame> {
 			return;
 		}
 		
-		int[][] new_frame = new int[x][y];
+		int[][] new_frame = new int[x+1][y+1];
 
 		for (int i = 0; i <=x; i++) {
 			for (int j = 0; j <=y; j++) {

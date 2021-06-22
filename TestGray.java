@@ -1,123 +1,90 @@
 package Ex4;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class TestGray {
-	@Test
-	void test2() {
-		int[][][] arr = { 
-				{{ 4, 5, 9, 1, 3, 6 },
-					{ 4, 5, 9, 1, 3, 6 },
-					{ 4, 5, 9, 1, 3, 6 },
-					{ 4, 5, 9, 1, 3, 6 }},
-
-				{{ 4, 5, 9, 1, 3, 6 },
-						{ 4, 5, 9, 1, 3, 6 },
-						{ 4, 5, 9, 1, 3, 6 },
-						{ 4, 5, 9, 1, 3, 6 }},
-
-
-				{{ 4, 5, 9, 1, 3, 6 },
-							{ 4, 5, 9, 1, 3, 6 },
-							{ 4, 5, 9, 1, 3, 6 },
-							{ 4, 5, 9, 1, 3, 6 }}
-
-
-
-		};
-		Frame color = new RGBImage(arr);
-		color.rotate90();
-		int[][][] ArrayOfFrame = ((RGBImage) color).getFrame();
-
-		int[][][] arr2 = { 
-				{{ 4, 4, 4, 4 },
-					{ 5, 5, 5, 5 },
-					{ 9, 9, 9, 9 },
-					{ 1, 1, 1, 1 },
-					{ 3, 3, 3, 3 },
-					{ 6, 6, 6, 6 }
-				},
-				{{ 4, 4, 4, 4 },
-					{ 5, 5, 5, 5 },
-					{ 9, 9, 9, 9 },
-					{ 1, 1, 1, 1 },
-					{ 3, 3, 3, 3 },
-					{ 6, 6, 6, 6 }
-				},
-				{{ 4, 4, 4, 4 },
-					{ 5, 5, 5, 5 },
-					{ 9, 9, 9, 9 },
-					{ 1, 1, 1, 1 },
-					{ 3, 3, 3, 3 },
-					{ 6, 6, 6, 6 }
-				}
-
-		};
-
-		Assertions.assertArrayEquals(arr2, ArrayOfFrame);
-	}
 
 	@Test
-	void test3() {
+    void test1() {
+		// rotate90
+		
+        int[][] arr = { { 1, 1, 1},
+        				{ 2, 2, 2},
+        				{ 3, 3, 3},
+        				{ 4, 4, 4} };
+        Frame frame = new GrayImage(arr);
+        frame.rotate90();
+        int[][] result = ((GrayImage) frame).getFrame();
 
-		int[][][] arr = { 
-				{{ 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 }},
-				{{ 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 }},
-				{{ 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 }},};
+        int[][] arr2 = {{ 4, 3, 2, 1 },
+        				{ 4, 3, 2, 1 },
+        				{ 4, 3, 2, 1 }};
 
-		Frame color = new RGBImage(arr);
-		color.crop(2, 2);
+        Assertions.assertArrayEquals(arr2, result);
+    }
 
-		int[][][] ArrayOfFrame = ((RGBImage) color).getFrame();
+    @Test
+    void test2() {
+    	//smooth
+    	
+        int[][] arr = { { 5, 2, 4 },
+        	        	{ 3, 4, 2 }, 
+        		        { 7, 3, 1 } };
+        Frame gray = new GrayImage(arr);
+        gray.smooth(3);
+        int[][] result = ((GrayImage) gray).getFrame();
 
-		int[][][] arr2 = { 
-				{{ 1, 2 }, { 4, 5 }},
-				{{ 1, 2 }, { 4, 5 }},
-				{{ 1, 2 }, { 4, 5 }},
-		};
+        int[][] arr2 = { { 3, 3, 3 },
+        			     { 4, 3, 2 },
+        				 { 4, 3, 2 }, };
+        Assertions.assertArrayEquals(arr2, result);
+    }
 
-		Assertions.assertArrayEquals(arr2, ArrayOfFrame);
-	}
+    @Test
+    void test3() {
+        int[][] arr = { { 1, 2, 3 },
+        				{ 4, 5, 6 },
+        				{ 7, 8, 9 } };
+        Frame gray = new GrayImage(arr);
+        gray.crop(1, 1);
 
-	@Test
-	void test4() {
-		int[][][] arr = {  {{ 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 }},
-				{{ 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 }},
-				{{ 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 }}, };
-		Frame color = new RGBImage(arr);
+        int[][] result = ((GrayImage) gray).getFrame();
 
-		color.addFrom(color);
+        int[][] arr2 = {    { 1, 2 },
+							{ 4, 5 },
+							 };
 
-		int[][][] ArrayOfFrame = ((RGBImage) color).getFrame();
+        Assertions.assertArrayEquals(arr2, result);
+    }
 
-		int[][][] arr2 = { 
-				{{ 2, 4, 6 }, { 8, 10, 12 }, { 14, 16, 18 }},
-				{{ 2, 4, 6 }, { 8, 10, 12 }, { 14, 16, 18 }},
-				{{ 2, 4, 6 }, { 8, 10, 12 }, { 14, 16, 18 }},
-		};
-		Assertions.assertArrayEquals(arr2, ArrayOfFrame);
-	}
+    @Test
+    void test4() {
+        int[][] arr = { { 9, 8, 7 }, { 6, 5, 4 }, { 3, 2, 1 } };
+        Frame gray = new GrayImage(arr);
 
-	@Test
-	void test5() {
+        gray.addFrom(gray);
 
-		int[][][] arr = { 
-				{    { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 }},
-				{    { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 }},
-				{    { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 }},
+        int[][] result = ((GrayImage) gray).getFrame();
+        int[][] arr2 = { { 18, 16, 14 }, { 12, 10, 8 }, { 6, 4, 2 } };
 
-		};
+        Assertions.assertArrayEquals(arr2, result);
+    }
 
-		Frame color = new RGBImage(arr);
+    @Test
+    void test5() {
 
-		int[] a = color.getPixel(1, 1);
+        int[][] arr = { { 1, 2, 3 },
+        				{ 4, 5, 6 },
+        				{ 7, 8, 9 } };
 
-		int[] arr2 = { 5,5,5 };
+        Frame gray = new GrayImage(arr);
 
-		Assertions.assertArrayEquals(arr2, a);
-	}
+        int[] a = gray.getPixel(2, 1);
+
+        int[] arr2 = { 8 };
+
+        Assertions.assertArrayEquals(arr2, a);
+    }
 
 }
