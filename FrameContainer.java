@@ -1,265 +1,191 @@
 package Ex4;
 
 import java.io.*;
+import java.util.Scanner;
 
-public class FrameContainer implements ContainerFunctions{
+public class FrameContainer implements ContainerFunctions {
 
 	private final int INIT_SIZE = 5, RESIZE = 5;
 	private Frame[] frames;
 	private int size;
 
-	public FrameContainer(int n){
-		frames = new Frame[n];
-		size = 0;
+	public FrameContainer() {
+		this.frames = new Frame[INIT_SIZE];
+		this.size = 0;
 	}
 
-	public FrameContainer(String FileName){
-		frames = new Frame[INIT_SIZE];
-		size = 0;
-
+	public FrameContainer(String FileName, boolean gray) {
+		this.frames = new Frame[INIT_SIZE];
+		this.size = 0;
 		try {
-			FileReader fr = new FileReader(FileName);
-			BufferedReader br = new BufferedReader(fr);
+			File TextFile = new File(FileName);
+			Scanner sc = new Scanner(TextFile);
 
-			String str;
-			str = br.readLine();
-			for(int i=1; str!=null; i=i+1) {
-
-				if (i > size) resize();
-				frames[size++] = MyImageIO.readImageFromFile(str, false);
-
-				str = br.readLine();
+			while (sc.hasNext()) {
+				if ((this.frames.length + 1) == this.size)
+					resize();
+				this.frames[size++] = MyImageIO.readImageFromFile(sc.nextLine(), gray);
 			}
-			br.close();
-			fr.close();
-		}
-		catch(IOException ex) {
-			System.out.print("Error writing file\n" + ex);
+			sc.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
 		}
 	}
 
 	@Override
 	public Frame get(int i) {
-		if (i >= size || i<0)
+		if (i >= this.size || i < 0)
 			return null;
 
-		return frames[i];
+		return this.frames[i];
 	}
 
 	@Override
 	public int size() {
-		return size;
+		return this.size;
 	}
 
 	@Override
 	public void add(Frame f) {
 		// TODO Auto-generated method stub
-		if (size == frames.length) resize();
-		frames[size++] = f;
+		if (this.size == this.frames.length)
+			resize();
+		this.frames[this.size++] = f;
 	}
 
-	public void resize(){
-		Frame temp[] = new Frame[frames.length+RESIZE];
-		for(int i=0; i<frames.length; i++){
-			temp[i] = frames[i];
+	public void resize() {
+		Frame temp[] = new Frame[this.frames.length + RESIZE];
+		for (int i = 0; i < this.frames.length; i++) {
+			temp[i] = this.frames[i];
 		}
-		frames = temp;
+		this.frames = temp;
 	}
 
 	@Override
 	public void remove(Frame f) {
 		// TODO Auto-generated method stub
 
-		for (int i = 0; i<size; i++) {
-			if (frames[i] == f) {
-				frames[i] = null;
-				for (int j = i+1; j<size; j++) {
-					frames[j-1] = frames[j];
+		boolean removed = false;
+
+		for (int i = 0; i < this.size && !removed; i++) {
+
+			if (f instanceof RGBImage) {
+
+				if (this.frames[i] instanceof GrayImage) {
+					continue;
 				}
-				size--;
-				break;
-			}
-		}
 
-	}
+				if (((RGBImage) f).compareTo(this.frames[i]) == 0) {
 
-	@Override
-	public void sort(Frame[] f) {
-		// TODO Auto-generated method stub
+					int delete_Arr[][][] = ((RGBImage) f).getFrame();
+					int my_arr[][][] = ((RGBImage) this.frames[i]).getFrame();
 
-		int size1;
-		int size2;
+					boolean same = true;
 
-		int arr1[][][];
-		int arr2[][];
+					for (int height = 0; height < my_arr[0].length && same; height++) {
+						for (int weight = 0; weight < my_arr[0][0].length && same; weight++) {
+							if (my_arr[0][height][weight] != delete_Arr[0][height][weight]
+									|| my_arr[1][height][weight] != delete_Arr[1][height][weight]
+											|| my_arr[2][height][weight] != delete_Arr[2][height][weight]) {
+								same = false;
+							}
+						}
+					}
 
-		for (int i = 0; i<size - 1; i++) {
-
-			if (f[i] instanceof GrayImage) {
-				arr2 = ((GrayImage)f[i]).getFrame();
-
-				size1 = arr2.length * arr2[0].length;
+					if (same) {
+						removed = true;
+					}
+				}
 			}
 
 			else {
+				if (this.frames[i] instanceof RGBImage) {
+					continue;
+				}
 
-				arr1 = ((RGBImage)f[i]).getFrame();
+				if (((GrayImage) f).compareTo(this.frames[i]) == 0) {
+					int delete_Arr[][] = ((GrayImage) f).getFrame();
+					int my_arr[][] = ((GrayImage) this.frames[i]).getFrame();
 
-				size1 = arr1[0].length * arr1[0][0].length;
+					boolean same = true;
+
+					for (int height = 0; height < my_arr.length && same; height++) {
+						for (int weight = 0; weight < my_arr[0].length && same; weight++) {
+							if (my_arr[height][weight] != delete_Arr[height][weight]) {
+								same = false;
+							}
+						}
+					}
+
+					if (same) {
+						removed = true;
+					}
+				}
 			}
 
-			for (int j = i+1; j<size; j++) {	
+			if (removed) {
+				this.frames[i] = null;
 
-				if (f[j] instanceof GrayImage) {
-					arr2 = ((GrayImage)f[j]).getFrame();
-
-					size2 = arr2.length * arr2[0].length;
+				for (int j = i + 1; j < this.size; j++) {
+					this.frames[j - 1] = this.frames[j];
+					this.frames[j] = null;
 				}
 
-				else {
+				this.size--;
+			}
+		}
+	}
 
-					arr1 = ((RGBImage)f[j]).getFrame();
+	@Override
+	public void sort() {
+		// TODO Auto-generated method stub
 
-					size2 = arr1[0].length * arr1[0][0].length;
+		for (int i = 0; i<this.size - 1; i++) {
+
+			for (int j = i+1; j<this.size; j++) { 
+				int answer = 0;
+
+				if (this.frames[i] instanceof GrayImage) { 
+					answer = ((GrayImage)this.frames[i]).compareTo(this.frames[j]); 
 				}
 
-				if (size1 < size2) {
+				else { 
+					answer = ((RGBImage)this.frames[i]).compareTo(this.frames[j]); 
+				}
+
+				if (answer == 1) {
 
 					Frame hold;
 
-					if (f[i] instanceof GrayImage) {
-						hold = new GrayImage((GrayImage)f[i]);	
+					if (this.frames[i] instanceof GrayImage) { 
+						hold = new GrayImage((GrayImage)this.frames[i]); 
 					}
 
-					else {
-						hold = new RGBImage((RGBImage)f[i]);		
+					else { 
+						hold = new RGBImage((RGBImage)this.frames[i]);
 					}
 
-					f[i] = f[j];
-					f[j] = hold;
+					this.frames[i] = this.frames[j]; this.frames[j] = hold; 
 				}
-
-			}	
+			} 
 		}
-
 	}
 
 	@Override
-	public void rotateAll(Frame[] f) {
+	public void rotateAll() {
 		// TODO Auto-generated method stub
-
-		for (int z = 0; z<size; z++) {
-			if (f[z] instanceof RGBImage) {
-				int[][][] frame =((RGBImage)f[z]).getFrame();
-				int[][][] rotate = new int[3][frame[0][0].length][frame[0].length];
-
-				for (int x = 0; x < rotate[0][0].length; x++) {
-					for (int y = 0; y < rotate[0].length; y++) {
-						rotate[0][y][x] = frame[0][frame[0].length - x - 1][y];
-						rotate[1][y][x] = frame[1][frame[1].length - x - 1][y];
-						rotate[2][y][x] = frame[2][frame[2].length - x - 1][y];
-					}
-				} 
-
-				frame = rotate;
-
-				f[z] = new RGBImage(rotate);
-			}
-
-			else {
-				int[][] frame =((GrayImage)f[z]).getFrame();
-				int[][] rotate = new int[frame[0].length][frame.length];
-
-				for (int x = 0; x < rotate[0].length; x++) {
-					for (int y = 0; y < rotate.length; y++) {
-						rotate[y][x] = frame[frame.length - x - 1][y];
-					}
-				} 
-
-				f[z] = new GrayImage(rotate);
-			}
+		
+		for (int z = 0; z < this.size; z++) {
+			this.frames[z].rotate90();
 		}
-	}
-
-	public boolean isInside(int test[][], int x, int y) {
-
-		if (x < 0 || y < 0 || x >= test.length || y >= test[0].length){
-			return false;
-		}
-
-		return true;
-	}
-
-	public boolean isInside(int test[][][], int x, int y) {
-
-		if (x < 0 || y < 0 || x >= test[0].length || y >= test[0][0].length){
-			return false;
-		}
-
-		return true;
 	}
 
 	@Override
-	public void smoothAll(Frame[] f, int n) {
+	public void smoothAll(int n) {
 		// TODO Auto-generated method stub
 
-		if (n <= 2) {
-			return;
-		}
-
-		if (n%2 == 0) {
-			n--;
-		}
-
-		for (int s = 0; s<size; s++) {
-
-			if (f[s] instanceof RGBImage) {
-				int[][][] frame =((RGBImage)f[s]).getFrame();
-
-				for (int z = 0; z < frame.length; z++) {
-					for (int i = 0; i < frame[0].length; i++) {
-						for (int j = 0; j < frame[0][0].length; j++) {
-							int counter = 0;
-							int avg = 0;
-
-							for (int a = i-n; a<= i+n; a++) {
-								for (int b = j-n; b<= j+n; b++) {
-									if (isInside(frame, a, b)) {
-										counter++;
-										avg += frame[z][a][b];
-									}
-								}
-							}
-
-							frame[z][i][j] = avg/(counter);
-						}
-					}
-				}
-
-				f[s] = new RGBImage(frame);
-			}
-
-			else {
-				int[][] frame =((GrayImage)f[s]).getFrame();
-
-				for (int i = 0; i < frame.length; i++) {
-					for (int j = 0; j < frame[0].length; j++) {
-						int counter = 0;
-						int avg = 0;
-
-						for (int a = i-n; a<= i+n; a++) {
-							for (int b = j-n; b<= j+n; b++) {
-								if (isInside(frame, a, b)) {
-									counter++;
-									avg += frame[a][b];
-								}
-							}
-						}
-
-						frame[i][j] = avg/(counter-1);
-					}
-				}
-			}
+		for (int s = 0; s < this.size; s++) {
+			this.frames[s].smooth(n);
 		}
 	}
 

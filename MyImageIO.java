@@ -99,18 +99,12 @@ public class MyImageIO {
 	}
 	
 	public static void main(String[] args) throws IOException {
-		Frame color=readImageFromFile("catE.jpg", false);
-		Frame gray= readImageFromFile("catE.jpg", true);
-		Frame color2=readImageFromFile("catE.jpg", false);
-
-		//gray.smooth(5);
-		//color.smooth(2);
+		Frame color=readImageFromFile("catE.jpg", true);
+		Frame gray= readImageFromFile("catE.jpg", false);
 		
-		color.rotate90();
-		gray.rotate90();
+		writeImageToFile(color, "catE.jpg_color");
+		writeImageToFile(gray, "catE.jpg_gray");
 		
-		writeImageToFile(color, "jpg_color");
-		writeImageToFile(gray, "catE.jpg_gray");	
 	}
 		
 }

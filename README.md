@@ -39,9 +39,9 @@ We need to implement the following functions:
 	<li><b>int size()</b> // return the amount of frames the array is storing.</li>
 	<li><b>void Add(Frame f)</b> // add Frame f to the array. and make it dynamic.</li>
 	<li><b>void remove(Frame f)</b> // delete Frame f if existing in the array. and make it dynamic.</li>
-	<li><b>void Sort(Frame[] f)</b> // Sort the Frames in f, by the size of them (height * weight)</li>
-	<li><b>void RotateAll(Frame[] f)</b> // Rotate all of the frames 90 digress.</li>
-	<li><b>void smoothAll(Frame[] f, int n)</b> smooth all of the frames by the number of neighbers n.</li>
+	<li><b>void Sort()</b> // Sort the Frames in f, by the size of them (height * weight)</li>
+	<li><b>void RotateAll()</b> // Rotate all of the frames 90 digress.</li>
+	<li><b>void smoothAll(int n)</b> smooth all of the frames by the number of neighbers n.</li>
 </ul>
 
 ### Stage 3:

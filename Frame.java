@@ -14,7 +14,5 @@ public interface Frame {
 	 void addFrom(Frame f);
 	 
 	 
-	 
-	 
 
 }
